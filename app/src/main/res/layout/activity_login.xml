@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+android:background="@color/primary_light"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:animateLayoutChanges="true"
+    tools:context="edu.kiet.www.blackbox.Activity.LoginActivity">
+
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:src="@drawable/srtc"
+        android:scaleType="center"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="UPSRTC"
+        android:textSize="28sp"
+        android:textColor="@color/primary_dark"
+        android:layout_gravity="center"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Data Acquisition System "
+        android:textSize="28sp"
+        android:textColor="@color/primary_dark"
+        android:layout_gravity="center"
+        android:gravity="center"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:id="@+id/credentials"
+        android:orientation="vertical">
+        <!-- Roll No Label -->
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/input_user_layout"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:textColor="@color/primary" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Password Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/input_password_layout"
+
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:textColorHint="@color/white"
+                android:inputType="textPassword"
+                android:textColor="@color/primary" />
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+   <AutoCompleteTextView
+       android:layout_width="match_parent"
+       android:layout_marginTop="15dp"
+       android:layout_height="wrap_content"
+       android:id="@+id/search"
+       android:minHeight="20dp"
+       android:gravity="left"
+       android:padding="10dp"
+       android:background="@drawable/selector_background"
+       android:hint="Enter Bus Number ... "
+       android:visibility="gone"
+       />
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Login"
+        android:layout_marginTop="30dp"
+        android:background="@color/primary"
+        android:textColor="@color/white" />
+
+</LinearLayout>
+</ScrollView>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1073747661914",
+    "firebase_url": "https://superb-virtue-175518.firebaseio.com",
+    "project_id": "superb-virtue-175518",
+    "storage_bucket": "superb-virtue-175518.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073747661914:android:5c26ec5105128143",
+        "android_client_info": {
+          "package_name": "edu.kiet.www.blackbox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073747661914-de36jsr3fb7ihei7so1h5t8fjoq5d9pc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.kiet.www.blackbox",
+            "certificate_hash": "40c042433b49e0257e2ae2b30eb7c6bce421f2cd"
+          }
+        },
+        {
+          "client_id": "1073747661914-ljsndggqt09chsgcm4ql6icpoqdn9aeh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeKwn6CQH5rt582UI6d6rPdcZ-GZC_khs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073747661914-ljsndggqt09chsgcm4ql6icpoqdn9aeh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

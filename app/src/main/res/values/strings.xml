@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BlackBox</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="network_error">No Network Connection</string>
+    <string name="invalid_credentials">Invalid Credentials</string>
+
+</resources>
