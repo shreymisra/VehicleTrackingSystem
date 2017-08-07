@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     String name,pass;
     List<String> ids=new ArrayList<String>();
     List<String> numb=new ArrayList<String>();
+    int a;
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter spinnerAdapter;
     Bundle bus=new Bundle();
