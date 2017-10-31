@@ -93,6 +93,7 @@ android:background="@color/primary_light"
        android:minHeight="20dp"
        android:gravity="left"
        android:padding="10dp"
+
        android:background="@drawable/selector_background"
        android:hint="Enter Bus Number ... "
        android:visibility="gone"

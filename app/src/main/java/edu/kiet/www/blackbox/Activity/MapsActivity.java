@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +37,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     FloatingActionButton details;
     List<Address> address=new ArrayList<>();
+
     FirebaseDatabase firebaseDatabase;
     LatLng busposition;
     LatLng copy=new LatLng(0,0);
+    List<String>  list_of_keys=new ArrayList<>();
+    List<String>  list_of_values=new ArrayList<>();
     DatabaseReference databaseReference;
+    FirebaseDatabase key;
+    DatabaseReference keyReference;
     Intent i;
-    String busid,busnumber;
+    String busid,busnumber,busKey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +59,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         i=getIntent();
         busid=i.getStringExtra("bus_id");
         busnumber=i.getStringExtra("bus_number");
+
         BusDetailsBottomSheet.busId=busid;
         BusDetailsBottomSheet.busNumber=busnumber;
         details=(FloatingActionButton)findViewById(R.id.fab);
@@ -74,30 +82,74 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
 
+        key=FirebaseDatabase.getInstance();
+        keyReference=key.getReference().child("bus_details");
+        keyReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    BusDetails bd=ds.getValue(BusDetails.class);
+                    if(bd.getBus_id().equals(busid))
+                    {
+                        busKey=ds.getKey();
+                        Log.e("BUSKEY",busKey);
+                        key_func();
+                        break;
+                    }
+                }
 
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+    public void key_func()
+    {
+        Log.e("key of bus",busKey);
 
         firebaseDatabase=FirebaseDatabase.getInstance();
-        databaseReference=firebaseDatabase.getReference().child("bus_details");
-        Log.e("fhiswi","helloooo");
+        databaseReference=firebaseDatabase.getReference().child("bus_details/"+busKey);
         BusDetailsBottomSheet.databaseReference=databaseReference;
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                list_of_values=new ArrayList<String>();
+                list_of_keys=new ArrayList<String>();
 
                 for(DataSnapshot m:dataSnapshot.getChildren()) {
-                    BusDetails b=m.getValue(BusDetails.class);
-                    //Log.e("data",b.toString());
-                    Log.e("IDS OF BUS",b.getBus_id());
-                    if(b.getBus_id().equals(busid))
+
+
+/*Log.e("data",m.toString());
+                    String getkeywala=m.getKey();
+                    Log.e("getKey",getkeywala);
+                    String getvaluewala=m.getValue().toString();
+                    Log.e("getValue",getvaluewala);*/
+
+                    list_of_keys.add(m.getKey());
+                    list_of_values.add(m.getValue().toString());
+                }
+                    Log.e("latitude",String.valueOf(list_of_keys.indexOf("latitude")));
+                    Log.e("Longitude",String.valueOf(list_of_keys.indexOf("longitude")));
+
+                   // BusDetails b=m.getValue(BusDetails.class);
+                   // Log.e("IDS OF BUS",b.getBus_id());
+                    if(list_of_values.get(list_of_keys.indexOf("bus_id")).equals(busid))
                     {
-                        Log.e("hi","hoii");
-                        busposition=new LatLng(Double.parseDouble(b.getLatitude()),Double.parseDouble(b.getLongitude()));
+                        Log.e("inside if","yes");
+                        busposition=new LatLng(Double.parseDouble(list_of_values.get(list_of_keys.indexOf("latitude"))),Double.parseDouble(list_of_values.get(list_of_keys.indexOf("longitude"))));
                         Log.e("busPos",busposition.toString());
                         //BusDetailsBottomSheet.speedBus=b.getBus_speed();
                         address_func();
-                        break;
+
                     }
-                }
+
+                Log.e("KEYS--->>",list_of_keys.toString());
+                Log.e("VALUES--->>",list_of_values.toString());
 
 
             }
@@ -108,24 +160,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+
+
     }
     public void address_func()
     {
-        Log.e("out of loop","yes");
         //LatLng x=new LatLng(23.234,111.123);
+        Log.e("out of loop","yes");
         Geocoder geocoder=new Geocoder(MapsActivity.this, Locale.getDefault());
 
         try {
             address= geocoder.getFromLocation(busposition.latitude,busposition.longitude,1);
             Log.e("Address",String.valueOf(address));
-         // BusDetailsBottomSheet.add=address.get(0).getAddressLine(1);
+            // jsonArray=address.toArray();
+            // BusDetailsBottomSheet.add=address.get(0).getAddressLine(1);
+
+
             mMap.addMarker(new MarkerOptions().position(busposition).title(address.get(0).getAddressLine(0)).snippet(address.get(0).getAddressLine(1)));
 
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Location Not found", Toast.LENGTH_SHORT).show();
         }
-       // mMap.addMarker(new MarkerOptions().position(busposition).title("Current Position"));
+        // mMap.addMarker(new MarkerOptions().position(busposition).title("Current Position"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(busposition,50));
         // Zoom in, animating the camera.
         mMap.animateCamera(CameraUpdateFactory.zoomIn());

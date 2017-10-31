@@ -32,6 +32,8 @@ public class BusDetailsBottomSheet extends BottomSheetDialogFragment {
     public static String busId,busNumber;
  TextView address;
     TextView speed;
+    List<String>  list_of_keys=new ArrayList<>();
+    List<String>  list_of_values=new ArrayList<>();
 
     List<Address> addressList=new ArrayList<>();
     TextView busNo;
@@ -51,26 +53,35 @@ public class BusDetailsBottomSheet extends BottomSheetDialogFragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                list_of_keys=new ArrayList<String>();
+                list_of_values=new ArrayList<String>();
                 for (DataSnapshot m:dataSnapshot.getChildren()) {
-                    BusDetails b=m.getValue(BusDetails.class);
-                    if(b.getBus_id().equals(busId)){
+
+                    list_of_keys.add(m.getKey());
+                    list_of_values.add(m.getValue().toString());
+                }
+//                    BusDetails b=m.getValue(BusDetails.class);
+                    if(list_of_values.get(list_of_keys.indexOf("bus_id")).equals(busId)){
                         Geocoder geocoder=new Geocoder(getContext(), Locale.getDefault());
                         try{
+                            addressList= geocoder.getFromLocation(Double.parseDouble(list_of_values.get(list_of_keys.indexOf("latitude"))),Double.parseDouble(list_of_values.get(list_of_keys.indexOf("longitude"))),1);
+                            int size=addressList.get(0).getMaxAddressLineIndex();
                             String s="";
-                            addressList= geocoder.getFromLocation(Double.parseDouble(b.getLatitude()),Double.parseDouble(b.getLongitude()),1);
-                            address.setText(addressList.get(0).getAddressLine(0)+"\n"+addressList.get(0).getAddressLine(1)+"\n"+addressList.get(0).getAddressLine(2)+"\n"+addressList.get(0).getAddressLine(3));
+                            for(int i=0;i<=size;i++)
+                                s=s+addressList.get(0).getAddressLine(i)+"\n";
+                            address.setText(s);
                         }
                         catch (Exception e){
                             e.printStackTrace();
                            // Toast.makeText(this, "Location Not found", Toast.LENGTH_SHORT).show();
                         }
-                        speed.setText(b.getBus_speed());
+                        speed.setText(list_of_values.get(list_of_keys.indexOf("bus_speed")));
                         busNo.setText(busNumber);
 
 
                     }
 
-                }
+
 
 
             }

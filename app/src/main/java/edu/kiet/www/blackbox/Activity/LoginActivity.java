@@ -1,5 +1,6 @@
 package edu.kiet.www.blackbox.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     String name,pass;
     List<String> ids=new ArrayList<String>();
     List<String> numb=new ArrayList<String>();
+    ProgressDialog progressDialog;
     int a;
     AutoCompleteTextView autoCompleteTextView;
     ArrayAdapter spinnerAdapter;
@@ -56,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         passLayout=(TextInputLayout)findViewById(R.id.input_password_layout);
        // busLayout=(TextInputLayout)findViewById(R.id.searchBusLayout);
         autoCompleteTextView=(AutoCompleteTextView) findViewById(R.id.search);
+        //progressDialog=new ProgressDialog(LoginActivity.this);
          FirebaseDatabase mFirebaseDatabase;
          DatabaseReference busIdReference;
 
@@ -84,9 +87,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         spinnerAdapter=new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,numb);
-       // autoCompleteTextView.setDropDownBackgroundResource();
-       // spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         autoCompleteTextView.setAdapter(spinnerAdapter);
+        autoCompleteTextView.setThreshold(1);
+
+
 
 
 
@@ -122,11 +126,15 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(name.equals("test")&&pass.equals("one"))
                         {
-                            Toast.makeText(LoginActivity.this, "Login Successfull", Toast.LENGTH_SHORT).show();
-                            credentials.setVisibility(View.GONE);
-                            autoCompleteTextView.setVisibility(View.VISIBLE);
-                            login.setText("Track this Bus");
-                            flag=2;
+
+                                Toast.makeText(LoginActivity.this, "Login Successfull", Toast.LENGTH_SHORT).show();
+                                credentials.setVisibility(View.GONE);
+                                autoCompleteTextView.setVisibility(View.VISIBLE);
+                                login.setText("Track this Bus");
+                                flag=2;
+
+
+
 
                         }
                         else
@@ -138,22 +146,18 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else if(flag==2)
                 {
-
-
-               autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                   @Override
-                   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                       Log.e("Hi","inside...wowhoooooo");
-                   }
-               });
-                        bus.putString("bus_id","1");
-                    bus.putString("bus_number","UP 32 AA 1234");
+               String s=autoCompleteTextView.getText().toString();
+                    int ind=numb.indexOf(s);
+                    Log.e("Bus number here",s);
+                    Log.e("INDEX",String.valueOf(ind));
+                    bus.putString("bus_id",ids.get(ind));
+                    bus.putString("bus_number",s);
                     Log.e("busss",bus.toString());
 
-                        Intent i=new Intent(LoginActivity.this, MapsActivity.class);
-                        i.putExtras(bus);
-                        startActivity(i);
 
+                    Intent i=new Intent(LoginActivity.this, MapsActivity.class);
+                    i.putExtras(bus);
+                    startActivity(i);
                 }
             }
         });
