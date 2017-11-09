@@ -381,6 +381,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private class ParserTask2 extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
 
+
+        
         // Parsing the data in non-ui thread
         List<String> sumary=new ArrayList<String>();
         @Override
