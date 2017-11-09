@@ -74,11 +74,11 @@ public class LoginActivity extends AppCompatActivity {
                     BusIds b=m.getValue(BusIds.class);
                     ids.add(b.getBus_id());
                     numb.add(b.getBus_name());
-                    Log.e("ids",ids.toString());
-                    Log.e("number",numb.toString());
+
 
                     //Log.e("Bus Id",b.getBus_id());
                 }
+
             }
 
             @Override
@@ -86,6 +86,8 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+        Log.e("ids",ids.toString());
+        Log.e("number",numb.toString());
         spinnerAdapter=new ArrayAdapter(this,android.R.layout.simple_dropdown_item_1line,numb);
         autoCompleteTextView.setAdapter(spinnerAdapter);
         autoCompleteTextView.setThreshold(1);
@@ -162,4 +164,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

@@ -36,7 +36,7 @@ public class BusDetailsBottomSheet extends BottomSheetDialogFragment {
     List<String>  list_of_values=new ArrayList<>();
 
     List<Address> addressList=new ArrayList<>();
-    TextView busNo;
+    TextView busNo,passengers,driverName,driverNo;
     FirebaseDatabase firebaseDatabase;
    public static DatabaseReference databaseReference;
 
@@ -49,6 +49,9 @@ public class BusDetailsBottomSheet extends BottomSheetDialogFragment {
         address=(TextView)contentView.findViewById(R.id.add);
         speed=(TextView)contentView.findViewById(R.id.speed);
         busNo=(TextView)contentView.findViewById(R.id.busNo);
+        passengers=(TextView)contentView.findViewById(R.id.passengers);
+        driverName=(TextView)contentView.findViewById(R.id.driverName);
+        driverNo=(TextView)contentView.findViewById(R.id.driverNo);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -77,6 +80,10 @@ public class BusDetailsBottomSheet extends BottomSheetDialogFragment {
                         }
                         speed.setText(list_of_values.get(list_of_keys.indexOf("bus_speed")));
                         busNo.setText(busNumber);
+                        passengers.setText("60");
+                        driverName.setText("Chandra Kant");
+                        driverNo.setText("9855321298");
+
 
 
                     }
