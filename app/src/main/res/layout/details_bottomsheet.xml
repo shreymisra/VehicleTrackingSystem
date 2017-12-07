@@ -36,13 +36,13 @@
         android:layout_margin="10dp"
         android:orientation="horizontal"
         >
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Location - "
-        android:textSize="18sp"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Location - "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
 
         <TextView
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:id="@+id/add"
             />
 
-</LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -75,28 +75,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:orientation="horizontal"
-        >
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="No Of Passengers - "
-            android:textSize="18sp"
-            android:textStyle="bold"
-            />
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textSize="18sp"
-            android:id="@+id/passengers"
-            />
-
-    </LinearLayout>
 
 
     <LinearLayout
@@ -170,5 +149,27 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Alcoholic State(of Driver) - "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/alcoholic_state"
+            />
+
+    </LinearLayout>
 
 </LinearLayout>

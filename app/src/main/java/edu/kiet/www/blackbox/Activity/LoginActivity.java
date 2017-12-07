@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,7 +156,7 @@ public class LoginActivity extends AppCompatActivity {
                     bus.putString("bus_id",ids.get(ind));
                     bus.putString("bus_number",s);
                     Log.e("busss",bus.toString());
-
+                    Log.e("fcmid", FirebaseInstanceId.getInstance().getToken());
 
                     Intent i=new Intent(LoginActivity.this, MapsActivity.class);
                     i.putExtras(bus);
